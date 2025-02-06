@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - 'openapi.yml'
+  workflow_dispatch:
 
 jobs:
   validate-openapi:
