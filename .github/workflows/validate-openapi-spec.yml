@@ -23,7 +23,7 @@ jobs:
 
     - name: Validate OpenAPI spec
       run: |
-        swagger-cli validate /openapi/openapi.yml
+        swagger-cli validate ./openapi/openapi.yml
 
     - name: Check validation result
       if: failure()
