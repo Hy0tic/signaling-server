@@ -3,10 +3,10 @@ name: Validate OpenAPI Specification
 on:
   push:
     paths:
-      - 'openapi.yml'
+      - './openapi/openapi.yml'
   pull_request:
     paths:
-      - 'openapi.yml'
+      - './openapi/openapi.yml'
   workflow_dispatch:
 
 jobs:
