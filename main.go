@@ -1,17 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"log"
+	"signaling-server/api"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, World!")
-}
-
 func main() {
-	http.HandleFunc("/", handler)
-	port := ":8080"
-	fmt.Println("Server is running on port" + port)
-	http.ListenAndServe(port, nil)
+	app := api.NewApp()
+	log.Fatal(app.Listen(":8080"))
 }
