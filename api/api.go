@@ -40,7 +40,5 @@ func NewApp() *fiber.App {
 		return c.SendString("Hello from signaling-server")
 	})
 
-	app.Get("GenerateTokenForJoinRoom")
-
 	return app
 }
