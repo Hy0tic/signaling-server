@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-
+	livekit "signaling-server/livekit"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -20,7 +20,18 @@ func (a *API) GetLivekitGetUsersInRoom(ctx context.Context, request GetLivekitGe
 
 // GetLivekitRoomCheck implements StrictServerInterface.
 func (a *API) GetLivekitRoomCheck(ctx context.Context, request GetLivekitRoomCheckRequestObject) (GetLivekitRoomCheckResponseObject, error) {
-	panic("unimplemented")
+
+	roomname := request.Params.RoomName
+	username := request.Params.Username
+
+	roomExist := livekit.RoomExist(roomname)
+	usernameAvailable := !livekit.UsernameTaken(username, roomname)
+
+	return GetLivekitRoomCheck200JSONResponse{
+		RoomExists: &roomExist,
+		UsernameAvailable: &usernameAvailable,
+	}, nil
+
 }
 
 // PostLivekitGenerateTokenForHostRoom implements StrictServerInterface.
