@@ -22,7 +22,7 @@ func init() {
 	// Load .env file
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Printf("Could not load .env file, will use environment variables.")
 	}
 
 	// Assign values from environment variables
@@ -31,7 +31,7 @@ func init() {
 	apiSecret = os.Getenv("LIVEKIT_API_SECRET")
 
 	if hostUrl == "" || apiKey == "" || apiSecret == "" {
-		log.Fatal("Missing LiveKit credentials in environment variables")
+		log.Fatalln("Missing LiveKit credentials in environment variables")
 	}
 
 	// Initialize RoomServiceClient
