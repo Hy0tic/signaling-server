@@ -4,8 +4,10 @@ import (
 	"context"
 	"log"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/livekit/protocol/auth"
 	livekit "github.com/livekit/protocol/livekit"
 	lksdk "github.com/livekit/server-sdk-go/v2"
 )
@@ -73,6 +75,23 @@ func RoomExist(room string) bool {
 	}
 
 	return false
+}
+
+func CreateToken(room, username string, canPublish, canSubscribe bool) (string, error) {
+	at := auth.NewAccessToken(apiKey, apiSecret)
+
+	grant := &auth.VideoGrant{
+		RoomJoin: true,
+		Room:     room,
+		CanPublish: &canPublish,
+		CanSubscribe: &canSubscribe,
+	}
+
+	at.SetVideoGrant(grant).
+		SetIdentity(username).
+		SetValidFor(time.Hour)
+
+	return at.ToJWT()
 }
 
 

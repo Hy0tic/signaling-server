@@ -10,7 +10,22 @@ type API struct{}
 
 // GenerateTokenForJoinRoom implements StrictServerInterface.
 func (a *API) GenerateTokenForJoinRoom(ctx context.Context, request GenerateTokenForJoinRoomRequestObject) (GenerateTokenForJoinRoomResponseObject, error) {
-	panic("unimplemented")
+	room := request.Body.Room
+	username := request.Body.Username
+
+	token, err := livekit.CreateToken(room, username, false, true)
+	if err != nil {
+		panic("error creating token")
+	}
+
+	p := &[]string{}
+	h := ""
+
+	return GenerateTokenForJoinRoom200JSONResponse{
+		Token: &token,
+		Host : &h,
+		Participants: p,
+	}, nil
 }
 
 // GetLivekitGetUsersInRoom implements StrictServerInterface.
